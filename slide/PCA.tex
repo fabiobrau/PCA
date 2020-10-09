@@ -1,5 +1,5 @@
 \documentclass[10pt]{beamer}
-
+\usepackage{bbm}
 \usepackage{graphicx}
 \renewcommand\appendixname{Appendix}
 \usepackage{xcolor}
@@ -7,9 +7,6 @@
 \colorlet{rred}{red!80!black}
 \colorlet{ggreen}{green!80!black}
 
-\newcommand{\XX}{\mathcal{X}}
-\newcommand{\TT}{\mathcal{T}}
-\newcommand{\YY}{\mathcal{Y}}
 
 
 
@@ -29,6 +26,15 @@
 \newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
 \theoremstyle{definition}
 \newtheorem{defn}{Definition}
+
+% math symbols
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\1}{\mathbbm{1}}
+\newcommand{\XX}{\mathcal{X}}
+\newcommand{\TT}{\mathcal{T}}
+\newcommand{\YY}{\mathcal{Y}}
 
 \title{An introduction to PCA}
 \subtitle{Weekly AI pills}
@@ -62,9 +68,40 @@
           \item A statistical Derivation
           \item Singolar Value Decomposition
       \end{enumerate}
-    \item PCA from Encoder Decoder
-    \item Application to MNIST
+    \item PCA from Encoder Decoder NN
+    \item Dummy examples
   \end{itemize}
 \end{frame}
+\begin{frame}{A Geometrical Idea}
+  Let $X \in \R^{N\times n}$ be a dataset of $N$
+  {\bf observation} within $n$ {\bf variables}. 
+  \begin{equation}
+    X =
+    \begin{bmatrix}
+      \, & x_1 ^ T &\,\\
+      \, & \vdots &\,\\
+      \, & x_N ^ T &\,\\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      & & & \\
+      x^{(1)} &\vline& \cdots& \vline& x^{(n)}\\
+      & & & \\
+    \end{bmatrix}
+    \label{Geometrical view}
+  \end{equation}
+  {\bf Notations:}
+  \begin{itemize}
+    \item $x_i\in\R^n$ represents a single {\bf observation}, i.e a {\bf
+      sample} in the feature space.
+    \item $x^{(i)}\in\R^N$ represents the single {\bf variable}, i.e a {\bf
+      column} of the dataset.
+    \item The object $\1_n\in\R^n$ is the unitary columnar vector of length
+      $n$ $\1_n=[1,\cdots,1]$.
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  
+\end{frame}<++>
 \end{document}
 
