@@ -1,0 +1,70 @@
+\documentclass[10pt]{beamer}
+
+\usepackage{graphicx}
+\renewcommand\appendixname{Appendix}
+\usepackage{xcolor}
+\usepackage{tikz}
+\colorlet{rred}{red!80!black}
+\colorlet{ggreen}{green!80!black}
+
+\newcommand{\XX}{\mathcal{X}}
+\newcommand{\TT}{\mathcal{T}}
+\newcommand{\YY}{\mathcal{Y}}
+
+
+
+\usetheme[progressbar=foot]{metropolis}
+\usepackage{appendixnumberbeamer}
+\setbeamercovered{dynamic}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setlength{\abovecaptionskip}{-10pt plus 0pt minus 0pt}
+
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+
+\title{An introduction to PCA}
+\subtitle{Weekly AI pills}
+\date{2020-10-16}
+\author{Fabio Brau.}
+\institute{SSSA, Emerging Digital Technologies, Pisa.}
+% \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
+
+\usebackgroundtemplate{%
+    \begin{picture}(300,271)
+      \hspace{11.2cm}
+       \includegraphics[scale=0.1]{pic/logoretis_noname.png}
+   \end{picture}}
+
+\begin{document}
+{\usebackgroundtemplate{%
+    \begin{picture}(300,265)
+      \hspace{0.9cm}
+       \includegraphics[scale=0.5]{pic/tecip_logo.png}
+       \hspace{0.5cm}
+       \includegraphics[scale=0.21]{pic/logoretis_320.png}
+   \end{picture}}%
+\maketitle
+}
+\begin{frame}{Summary}
+  \begin{itemize}
+    \item The aim of Principal Component Analysis
+    \item Derivation
+      \begin{enumerate}
+          \item A Geometrical idea
+          \item A statistical Derivation
+          \item Singolar Value Decomposition
+      \end{enumerate}
+    \item PCA from Encoder Decoder
+    \item Application to MNIST
+  \end{itemize}
+\end{frame}
+\end{document}
+
