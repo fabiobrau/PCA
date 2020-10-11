@@ -76,6 +76,7 @@
     \item Dummy examples
   \end{itemize}
 \end{frame}
+\section{Geometrical Introduction}
 \begin{frame}{Geometrical Introduction}
   Let $X \in \R^{N\times n}$ be a dataset of $N$
   {\bf observation} within $n$ {\bf variables}. 
@@ -146,18 +147,21 @@
 \end{frame}
 \metroset{block=fill}
 \begin{frame}{Geometrical Introduction: Direction Selection}
-Let us define $V(w)=\sum_j (w \cdot x_j)^2$ as {\bf momentum along $w$}. \\
+  \[
+    V(w)=\sum_j (w \cdot x_j)^2 \qquad\mbox{\bf momentum along $w$}
+  \]
+  \onslide<2->
   If $w_1,\,w_2,\,w_3$ orthogonal that maximizes $V$ in the 3D example, then
   \begin{enumerate}
-    \item<1-> $V(w_1) =  3181.20$\hfill\uncover<4->{\approx82.5\%}
-    \item<2-> $V(w_2) = 646.25$\hfill\uncover<4->{\approx 17.0\%}
-    \item<3-> $V(w_3) = 19.23$ \hfill\uncover<4->{\approx 0.5 \%}
+    \item $V(w_1) =  3181.20$\hfill\uncover<3->{\approx82.5\%}
+    \item $V(w_2) = 646.25$\hfill\uncover<3->{\approx 17.0\%}
+    \item $V(w_3) = 19.23$ \hfill\uncover<3->{\approx 0.5 \%}
   \end{enumerate}
-    \onslide<5->
+    \onslide<4->
     \begin{center}
       {\bf What if we forget the last direction?}
     \end{center}
-  \onslide<6->
+  \onslide<5->
   \begin{block}{Observation}
     \begin{itemize}
         \item $x_j =\alpha_{1j}w_1+\alpha_{2j}w_2+\alpha_{3j}w_3$
@@ -170,8 +174,29 @@ Let us define $V(w)=\sum_j (w \cdot x_j)^2$ as {\bf momentum along $w$}. \\
       \tag{MSE}
     \end{equation}
   \end{block}
-  
-  
 \end{frame}
+\begin{frame}{Geometrical Introduction: Conclusion}
+  \begin{itemize}
+    \item Given a set of data $X\in\R^{N\times n}$
+    \item We can find $w_1,\cdots,w_n$ principal (orthonormal) directions the
+      maximize their momentum.
+    \item $V(w_1) > V(w_2)>\cdots> V(w_n)$
+    \item Approximating X with $\tilde X$ by taking only the first $k$ directions we are
+    getting an error that is $V(w_{k+1})/N$
+  \end{itemize}
+  \onslide<2->
+  {\bf\centering What's the catch?}
+  \onslide<3->
+   \begin{equation}
+     \begin{aligned}
+       \max_{w\in\R^n}\quad & \sum_{j=1}^N (w \cdot x_j)^2\\
+       \mbox{s.t}\quad & w_i \cdot w =0, \,\forall i<k \\
+       & w\cdot w = 1\\
+    \end{aligned}
+    \label{MP}
+    \tag{MP}
+  \end{equation} 
+\end{frame}
+\section{Statistical Derivation}
 \end{document}
 
