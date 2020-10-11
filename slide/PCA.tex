@@ -1,5 +1,6 @@
 \documentclass[10pt]{beamer}
 \usepackage{bbm}
+
 \usepackage{graphicx}
 \renewcommand\appendixname{Appendix}
 \usepackage{xcolor}
@@ -26,6 +27,7 @@
 \newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
 \theoremstyle{definition}
 \newtheorem{defn}{Definition}
+\newtheorem{obs}{Observation}
 
 % math symbols
 \newcommand{\R}{\mathbb{R}}
@@ -36,6 +38,8 @@
 \newcommand{\TT}{\mathcal{T}}
 \newcommand{\YY}{\mathcal{Y}}
 
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
 \title{An introduction to PCA}
 \subtitle{Weekly AI pills}
 \date{2020-10-16}
@@ -72,7 +76,7 @@
     \item Dummy examples
   \end{itemize}
 \end{frame}
-\begin{frame}{A Geometrical Idea}
+\begin{frame}{Geometrical Introduction}
   Let $X \in \R^{N\times n}$ be a dataset of $N$
   {\bf observation} within $n$ {\bf variables}. 
   \begin{equation}
@@ -100,8 +104,74 @@
       $n$ $\1_n=[1,\cdots,1]$.
   \end{itemize}
 \end{frame}
-\begin{frame}
+\begin{frame}{Geometrical Introduction: Finding a principal direction.}
+  \begin{minipage}{0.5\textwidth}
+    \begin{enumerate}
+      \item \uncover<1->{Scalar product measures the projection of $x_j$ along
+        the direction $w$.}
+      \item \uncover<2->{We are only interested on module.}
+      \item \uncover<3->{Summation over samples to get the global
+        projection's contribute.}
+      \item \uncover<4->{Searching for $w$ which maximizes projection.}
+      \item \uncover<5->{Adding constraint to avoid $w\to\infty$ solution.}
+    \end{enumerate}
+  \end{minipage}\hfill
+  \begin{minipage}{0.4\textwidth}
+      \begin{equation*}
+        \uncover<4->{w_1 \in\argmax_{\uncover<5>{\|w\|_2 = 1}}}
+        \uncover<3->{\sum_{j=1}^N}
+        \uncover<2->{\left(}\uncover<1->{w\cdot x_j}\uncover<2->{\right)^2}
+      \end{equation*}
+    \begin{figure}[b]
+      \centering
+      \includegraphics<1-2>[clip, scale=0.3, trim=3.1cm 0 0cm 0cm]{./pic/dummy_2.eps}
+      \includegraphics<3->[clip, scale=0.3, trim=3.1cm 0 0cm 0cm]{./pic/dummy_3.eps}
+    \end{figure}
+  \end{minipage}
+\end{frame}
+\begin{frame}{Geometrical Introduction: Finding other directions}
+  We search for other orthogonal directions which maximize projections.
+  \begin{equation*}
+  \begin{aligned}
+    w_1 \in \argmax_{\|w\|_2=1}\sum_{j=1}^N (w\cdot x)^2 &\\
+    w_2 \in \argmax_{\|w\|_2=1}\sum_{j=1}^N (w\cdot x)^2 &\quad\mbox{and}\quad w_2\perp w_1\\
+    \vdots \\
+    w_n \in \argmax_{\|w\|_2=1}\sum_{j=1}^N (w\cdot x)^2 &\quad\mbox{and}\quad w_2\perp \left\{
+    w_1,\ldots,w_{n-1} \right\}
+  \end{aligned}
+\end{equation*}
+\begin{center}
+  \href{./pic/PCA_3D.html}{\bf Example}
+\end{center}
+\end{frame}
+\metroset{block=fill}
+\begin{frame}{Geometrical Introduction: Direction Selection}
+Let us define $V(w)=\sum_j (w \cdot x_j)^2$ as {\bf momentum along $w$}. \\
+  If $w_1,\,w_2,\,w_3$ orthogonal that maximizes $V$ in the 3D example, then
+  \begin{enumerate}
+    \item<1-> $V(w_1) =  3181.20$\hfill\uncover<4->{\approx82.5\%}
+    \item<2-> $V(w_2) = 646.25$\hfill\uncover<4->{\approx 17.0\%}
+    \item<3-> $V(w_3) = 19.23$ \hfill\uncover<4->{\approx 0.5 \%}
+  \end{enumerate}
+    \onslide<5->
+    \begin{center}
+      {\bf What if we forget the last direction?}
+    \end{center}
+  \onslide<6->
+  \begin{block}{Observation}
+    \begin{itemize}
+        \item $x_j =\alpha_{1j}w_1+\alpha_{2j}w_2+\alpha_{3j}w_3$
+          (where $\alpha_{ij} = w_i\cdot x_j$).
+        \item $\tilde x_j = \alpha_{1j}w_1 + \alpha_{2j}w_2$. 
+    \end{itemize}
+    \begin{equation}
+      \frac{1}{N}\sum_j \|x_j - \tilde x_j\|^2 = \frac{V(w_3)}{N}\approx
+      4.8\,10^{-3}
+      \tag{MSE}
+    \end{equation}
+  \end{block}
   
-\end{frame}<++>
+  
+\end{frame}
 \end{document}
 
