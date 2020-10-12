@@ -33,10 +33,15 @@
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\E}{\mathbb{E}}
 \newcommand{\1}{\mathbbm{1}}
 \newcommand{\XX}{\mathcal{X}}
 \newcommand{\TT}{\mathcal{T}}
 \newcommand{\YY}{\mathcal{Y}}
+\newcommand{\UU}{\mathcal{U}}
+\newcommand{\VV}{\mathcal{V}}
+\newcommand{\WW}{\mathcal{W}}
+\newcommand{\LL}{\mathcal{L}}
 
 \DeclareMathOperator*{\argmin}{argmin}
 \DeclareMathOperator*{\argmax}{argmax}
@@ -102,7 +107,8 @@
     \item $x^{(i)}\in\R^N$ represents the single {\bf variable}, i.e a {\bf
       column} of the dataset.
     \item The object $\1_n\in\R^n$ is the unitary columnar vector of length
-      $n$ $\1_n=[1,\cdots,1]$.
+      $n$ $\1_n=[1,\cdots,1]^T$.
+    \item $X$ is centered if $X^T\1=0$
   \end{itemize}
 \end{frame}
 \begin{frame}{Geometrical Introduction: Finding a principal direction.}
@@ -197,6 +203,93 @@
     \tag{MP}
   \end{equation} 
 \end{frame}
-\section{Statistical Derivation}
+\section{Classical Derivation}
+\begin{frame}{Classical Derivation: Notations}{}
+$\VV$ random variable, $V = (v_1,\ldots,v_N)$ N observations of the variable. 
+  \begin{itemize}
+    \item\uncover<2->{{\bf Expected Value} \hfill $\E[\VV] =
+      \frac{1}{N}\sum_{j=1}^N v_j$} 
+    \item\uncover<3->{{\bf Variance} \hfill $Var(\VV) = \E[(\VV -
+      \E[\VV])^2]$}
+    \item\uncover<4->{{\bf Covariance} \hfill $Cov(\UU,\VV) = \E[(\UU -
+      \E[\UU])(\VV - \E[\VV])]$}
+  \end{itemize}
+  \onslide<5->
+
+  {\bf Observations}\\
+  Under the assumption $\E[\UU]=\E[\VV]=0$
+  \begin{enumerate}
+    \item $Var(\VV)=\frac{1}{N}\sum_{j=1}^N v_j^2$
+    \item $Cov(\UU,\VV) = \frac{1}{N}\sum_{j=1}^N u_jv_j$ 
+  \end{enumerate}
+\end{frame}
+\begin{frame}{Classical Derivation: An Eigenvalue Problem}
+  \[
+    \max_{\|w\|=1} V(w) =\max_{\|w\|=1} \sum_j (w^Tx_j)^2 = \max_{w^Tw=1}
+    w^T(X^TX)w  
+    \tag{MP}
+  \]
+  \onslide<2->
+  \begin{center}
+    {\bf Lagrange Multipliers Technique}
+  \end{center}
+  Let consider the Lagrangian Function of \ref{MP}
+  \[
+    \LL(w,\lambda) = V(w) - \lambda(w^Tw -1),\quad\forall w
+    \in\R^n,\,\lambda\in\R
+  \]
+  \begin{block}{Claim}
+  If $w^*$ is a solution of \ref{MP} then there exists $\lambda^*$ such that
+  \begin{equation}
+    \nabla \LL(w^*,\lambda^*)=0,\quad i.e\quad
+      (X^TX) w^* -\lambda^*w^*=0
+  \end{equation}
+  \end{block}
+  \onslide<3->
+  \[
+    w\, \mbox{\bf Principal Direction}\quad\Longrightarrow\quad w\,
+    \mbox{\bf Eigenvector of}\, X^TX
+  \]
+\end{frame}
+\begin{frame}{Classical Derivation: An Eigenvalue Problem}
+  \begin{center}
+    {\bf Why switching to an eigen-pair problem?}
+  \end{center}
+  \onslide<2->
+  \begin{minipage}[t]{0.5\textwidth}
+    \begin{minipage}[t]{0.3\textwidth}
+      \vfill
+      $X^TX\qquad +\qquad$
+    \end{minipage}
+    \begin{minipage}[t]{0.3\textwidth}
+      \begin{figure}[h!]
+        \centering
+        \includegraphics<2->[scale=0.10, trim=0cm 0cm 0 3cm]{./pic/matlab.png}
+      \end{figure}
+    \end{minipage}
+    \begin{minipage}[t]{0.1\textwidth}
+    \vfill
+    $\qquad\longrightarrow$
+    \end{minipage}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.5\textwidth}
+    \vspace{-0.4cm}
+    \begin{itemize}
+      \item $w_1,\cdots,w_n$ \hfill {\bf eigenvectors}
+      \item $w_i^TX^TXw_i=V(w_i)$ \hfill{\bf eigenvalues}
+      \item $V(w_1)>\cdots>V(w_n)$
+    \end{itemize}
+  \end{minipage}
+\end{frame}
+\begin{frame}{Classical Derivation: Data Compression}
+  The matrix $W=[w_1|\cdots|w_n]$ can be used to reduce the dimensionality
+  \[
+    F=
+    \begin{bmatrix}
+      f^{(1)}&|\cdots|&f^{(n)}
+    \end{bmatrix}
+    = X\,W\quad\mbox{\bf (factors)}
+  \]
+\end{frame}
 \end{document}
 
