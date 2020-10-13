@@ -282,7 +282,8 @@ $\VV$ random variable, $V = (v_1,\ldots,v_N)$ N observations of the variable.
     \end{itemize}
   \end{minipage}
 \end{frame}
-\begin{frame}{Classical Derivation: Dimensionality Reduction}
+\section{Dimensionality Reduction}
+\begin{frame}{Dimensionality Reduction}
   The matrix $W=[w_1|\cdots|w_n]$ can be used to reduce the dimensionality
   \[
     F=
@@ -307,19 +308,41 @@ $\VV$ random variable, $V = (v_1,\ldots,v_N)$ N observations of the variable.
     \end{figure}
   \end{minipage}
 \end{frame}
-\begin{frame}{Classical Derivation: Dimensionality Reduction}
-  \animategraphics[loop,controls,width=0.5\linewidth]{2}{./pic/mnist/compress-}{0}{15}
-  \begin{block}{Summary}{}
+\begin{frame}{Dimensionality Reduction: A concrete example}
+  %\animategraphics[loop,controls,width=0.5\linewidth]{2}{./pic/mnist/compress-}{0}{15}
+  \begin{minipage}[t]{0.4\textwidth}
+    \begin{figure}[h!]
+      \centering
+      \includegraphics<1>[scale=0.3]{./pic/mnist/compress-1.eps}%
+      \includegraphics<2>[scale=0.3]{./pic/mnist/compress-10.eps}%
+      \includegraphics<3>[scale=0.3]{./pic/mnist/compress-20.eps}%
+      \includegraphics<4>[scale=0.3]{./pic/mnist/compress-100.eps}%
+      \includegraphics<5>[scale=0.3]{./pic/mnist/compress-200.eps}%
+      \includegraphics<6>[scale=0.3]{./pic/mnist/compress-500.eps}%
+      \includegraphics<7>[scale=0.3]{./pic/mnist/compress-700.eps}%
+    \end{figure}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.5\textwidth}
+    \begin{figure}[h!]
+      \centering
+      \includegraphics<1>[scale=0.3]{./pic/mnist/cum_eig-1.eps}%
+      \includegraphics<2>[scale=0.3]{./pic/mnist/cum_eig-10.eps}%
+      \includegraphics<3>[scale=0.3]{./pic/mnist/cum_eig-20.eps}%
+      \includegraphics<4>[scale=0.3]{./pic/mnist/cum_eig-100.eps}%
+      \includegraphics<5>[scale=0.3]{./pic/mnist/cum_eig-200.eps}%
+      \includegraphics<6>[scale=0.3]{./pic/mnist/cum_eig-500.eps}%
+      \includegraphics<7>[scale=0.3]{./pic/mnist/cum_eig-700.eps}%
+    \end{figure}
+  \end{minipage}
+  \begin{block}{Theoretical Error Estimation}{}
+    \begin{enumerate}
+      \item $x\in\R^{n}$ original sample.
+      \item $f = W^T x\in\R^{n}$ coordinates in factor-scores space.
+      \item $\tilde f = [f_1,\cdots,f_{n-k}]\in\R^{n-k}$ dropping last $k$ coordinates.
+    \item $\tilde x = [w_1|\cdots|w_{n-k}]\, \tilde f\in\R^{n}$, approximation of $x$.
+    \end{enumerate}
     \[
-      \left\|
-      \begin{bmatrix}
-        f^{(1)} &|\cdots|& f^{(n-k)}
-      \end{bmatrix}
-      \begin{bmatrix}
-        w_1^T\\
-        \vdots\\
-        w_{n-k}
-      \end{bmatrix} - X\right\|<=V(w_k)+\cdots+V(w_n)
+      \|x-\tilde x\|\approx\frac{1}{\sqrt{N}}\| X - X_k\|= \frac{1}{\sqrt{N}}\sqrt{V(n-k+1)+\cdots+V(n)}
     \]
   \end{block}
 \end{frame}
