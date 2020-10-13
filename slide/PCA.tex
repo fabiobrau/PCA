@@ -2,6 +2,7 @@
 \usepackage{bbm}
 
 \usepackage{graphicx}
+\usepackage{animate}
 \renewcommand\appendixname{Appendix}
 \usepackage{xcolor}
 \usepackage{tikz}
@@ -281,15 +282,46 @@ $\VV$ random variable, $V = (v_1,\ldots,v_N)$ N observations of the variable.
     \end{itemize}
   \end{minipage}
 \end{frame}
-\begin{frame}{Classical Derivation: Data Compression}
+\begin{frame}{Classical Derivation: Dimensionality Reduction}
   The matrix $W=[w_1|\cdots|w_n]$ can be used to reduce the dimensionality
   \[
     F=
     \begin{bmatrix}
       f^{(1)}&|\cdots|&f^{(n)}
     \end{bmatrix}
-    = X\,W\quad\mbox{\bf (factors)}
+    = X\,W\quad\mbox{\bf (factors scores)}
   \]
+  \begin{minipage}[t]{0.4\textwidth}
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[clip, scale=0.4, trim=1cm 1.5cm 8cm 4cm]{./pic/PCA_3D.png}
+      \caption{Feature space}
+    \end{figure}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.5\textwidth}
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[scale=0.3]{./pic/PCA_2D.png}
+      \caption{Factor scores restricted to the first two principal
+      directions.}
+    \end{figure}
+  \end{minipage}
+\end{frame}
+\begin{frame}{Classical Derivation: Dimensionality Reduction}
+  \animategraphics[loop,controls,width=0.5\linewidth]{2}{./pic/mnist/compress-}{0}{15}
+  \begin{block}{Summary}{}
+    \[
+      \left\|
+      \begin{bmatrix}
+        f^{(1)} &|\cdots|& f^{(n-k)}
+      \end{bmatrix}
+      \begin{bmatrix}
+        w_1^T\\
+        \vdots\\
+        w_{n-k}
+      \end{bmatrix} - X\right\|<=V(w_k)+\cdots+V(w_n)
+    \]
+  \end{block}
 \end{frame}
 \end{document}
 
