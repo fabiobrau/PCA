@@ -1,5 +1,6 @@
 \documentclass[10pt]{beamer}
 \usepackage{bbm}
+\usepackage{fontspec}
 
 \usepackage{graphicx}
 \usepackage{animate}
@@ -71,15 +72,11 @@
 }
 \begin{frame}{Summary}
   \begin{itemize}
-    \item The aim of Principal Component Analysis
-    \item Derivation
-      \begin{enumerate}
-          \item A Geometrical idea
-          \item A statistical Derivation
-          \item Singolar Value Decomposition
-      \end{enumerate}
-    \item PCA from Encoder Decoder NN
-    \item Dummy examples
+    \item Geometrical Introduction
+    \item Classical Derivation
+    \item Dimensionality Reduction
+    \item Statistical Point of View
+    \item Non Linear PCA
   \end{itemize}
 \end{frame}
 \section{Geometrical Introduction}
@@ -342,7 +339,7 @@ $\VV$ random variable, $V = (v_1,\ldots,v_N)$ N observations of the variable.
       \E[\VV])^2]$}
     \item\uncover<4->{{\bf Covariance} \hfill $Cov(\UU,\VV) = \E[(\UU -
       \E[\UU])(\VV - \E[\VV])]$}
-  \item If $\UU = (\UU_1,\cdots,\UU_m)$, then 
+  \item\uncover<5->{If $\UU = (\UU_1,\cdots,\UU_m)$, then 
       \[
         Cov(\UU)=
         \begin{bmatrix}
@@ -350,9 +347,9 @@ $\VV$ random variable, $V = (v_1,\ldots,v_N)$ N observations of the variable.
           \vdots & \ddots & \vdots \\
           Cov(\UU_m,\UU_1)& \cdots & Cov(\UU_m,\UU_m)
         \end{bmatrix}
-      \]
+      \]}
   \end{itemize}
-  \onslide<5->
+  \onslide<6->
 
   {\bf Observations}\\
   Under the assumption $\E[\UU]=\E[\VV]=0$
@@ -406,6 +403,58 @@ $\VV$ random variable, $V = (v_1,\ldots,v_N)$ N observations of the variable.
     \]
     \end{block}
   \end{minipage}}
+\end{frame}
+\section{Non Linear PCA}
+\begin{frame}{Non Linear PCA: Kernel PCA}
+  \begin{minipage}[t]{0.4\textwidth}
+    \begin{equation*}
+      \begin{aligned}
+        V_{\kappa}(w) = &\sum_j \kappa(w, x_j)^2\\
+        &\mbox{where} \\
+        \kappa(v,w)= & \Phi(v)\cdot\Phi(w)
+      \end{aligned}
+    \end{equation*}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.4\textwidth}
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[scale=0.15]{./pic/kernel-trick.png}
+    \end{figure}
+  \end{minipage}\vfill
+  \onslide<2->
+  \href{https://ieeexplore.ieee.org/servlet/opac?bknumber=6267332}%
+  {\bf Learning with kernels - Bernhard Schölkopf, Alexander J. Smola}
+
+\end{frame}
+\begin{frame}{Non Linear PCA: Autoencoders}
+  \begin{minipage}[t]{0.5\textwidth}
+      \begin{figure}[h!]
+      \centering
+      \includegraphics[scale=0.15, trim=0 0 0 5cm]{./pic/enc-dec.png}
+    \end{figure}
+  \end{minipage}%
+  \begin{minipage}[t]{0.5\textwidth}
+    \begin{center}
+      {\bf Autoencoders Training}
+    \end{center}
+    \begin{equation}
+      \min_\theta \frac{1}{N}\sum_{j} \|f_\theta(x_j) - x_j\|^2
+      \label{autotrain}
+      \tag{mP}
+    \end{equation}
+  \end{minipage}
+  \vfill
+\onslide<2-> 
+\begin{block}{Claim\footnote{\href{https://arxiv.org/pdf/1804.10253.pdf}{\bf
+      From Principal Subspaces to Principal Components with Linear
+Autoencoders}}}
+  \begin{itemize}
+    \item $f_\theta(x)= U\,V\,x$ is a 1-depth autoencoder with hidden space of
+    dimension $k$.
+  \item If $W=[w_1|\cdots|w_n]$ principal components of $X\in\R^{N\times n}$
+  \item $V^*= [w_1|\cdots|w_k]$ and $U^*=(V^*)^T$ solves~\ref{autotrain}
+  \end{itemize}
+\end{block}
 \end{frame}
 \appendix
 \section{appendix}
