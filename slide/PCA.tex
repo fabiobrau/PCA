@@ -79,6 +79,21 @@
     \item Non Linear PCA
   \end{itemize}
 \end{frame}
+\begin{frame}{Introduction: Principal Component Analysis}{}
+    {\it ``The aim of Principal Component Analysis is to reduce the
+    dimensionality of a dataset without loosing the relations between variables.''}
+  \begin{enumerate}
+    \item {\bf Pearson} (1901) Introduced PCA by focusing on geometric
+      optimization problem.\\
+      He stated that his method ``can be easily applied
+      to numerical problem'' but the calculation becomes ``cumbersome'' for
+      more than $4$ variables.
+    \onslide<3->
+    \item {\bf Hotelling} (1933) Introduced PCA by focusing on {\bf Factor
+      Analysis}.\\
+      He introduced the term {\bf Principal Component}
+  \end{enumerate}
+\end{frame}
 \section{Geometrical Introduction}
 \begin{frame}{Geometrical Introduction}
   Let $X \in \R^{N\times n}$ be a dataset of $N$
@@ -104,9 +119,7 @@
       sample} in the feature space.
     \item $x^{(i)}\in\R^N$ represents the single {\bf variable}, i.e a {\bf
       column} of the dataset.
-    \item The object $\1_n\in\R^n$ is the unitary columnar vector of length
-      $n$ $\1_n=[1,\cdots,1]^T$.
-    \item $X$ is centered if $X^T\1_N=0$
+    \item $X$ is centered if $X^T\1_N=0$, where $\1_n=[1,\cdots,1]^T$.
   \end{itemize}
 \end{frame}
 \begin{frame}{Geometrical Introduction: Finding a principal direction.}
@@ -186,8 +199,8 @@
     \item We can find $w_1,\cdots,w_n$ principal (orthonormal) directions the
       maximize their momentum.
     \item $V(w_1) > V(w_2)>\cdots> V(w_n)$
-    \item Approximating X with $\tilde X$ by taking only the first $k$ directions we are
-    getting an error that is $V(w_{k+1})/N$
+    \item Approximating X with $\tilde X$ by taking only the first $k$
+      directions we are getting an error that depends on $V(w_i)$.
   \end{itemize}
   \onslide<2->
   {\bf\centering What's the catch?}
@@ -227,7 +240,7 @@
   \end{block}
   \onslide<3->
   \[
-    w\, \mbox{\bf Principal Direction}\quad\Longrightarrow\quad w\,
+    w\, \mbox{\bf Principal Direction}\quad\iff\quad w\,
     \mbox{\bf Eigenvector of}\, X^TX
   \]
 \end{frame}
@@ -299,7 +312,7 @@
       \includegraphics<4>[scale=0.3]{./pic/mnist/compress-100.eps}%
       \includegraphics<5>[scale=0.3]{./pic/mnist/compress-200.eps}%
       \includegraphics<6>[scale=0.3]{./pic/mnist/compress-500.eps}%
-      \includegraphics<7>[scale=0.3]{./pic/mnist/compress-700.eps}%
+      \includegraphics<7->[scale=0.3]{./pic/mnist/compress-700.eps}%
     \end{figure}
   \end{minipage}\hfill
   \begin{minipage}[t]{0.5\textwidth}
@@ -311,19 +324,20 @@
       \includegraphics<4>[scale=0.3]{./pic/mnist/cum_eig-100.eps}%
       \includegraphics<5>[scale=0.3]{./pic/mnist/cum_eig-200.eps}%
       \includegraphics<6>[scale=0.3]{./pic/mnist/cum_eig-500.eps}%
-      \includegraphics<7>[scale=0.3]{./pic/mnist/cum_eig-700.eps}%
+      \includegraphics<7->[scale=0.3]{./pic/mnist/cum_eig-700.eps}%
     \end{figure}
   \end{minipage}
   \begin{block}{Compression Error Estimation}{}
     \begin{enumerate}
       \item $x\in\R^{n}$ original sample.
       \item $f = W^T x\in\R^{n}$ coordinates in factor-scores space.
-      \item $\tilde f = [f_1,\cdots,f_{n-k}]\in\R^{n-k}$ dropping last $k$ coordinates.
-    \item $\tilde x = [w_1|\cdots|w_{n-k}]\, \tilde f\in\R^{n}$, approximation of $x$.
+      \item $\tilde f = [f_1,\cdots,f_{k}]\in\R^{n-k}$ taking first $k$ coordinates.
+    \item $\tilde x = [w_1|\cdots|w_{k}]\, \tilde f\in\R^{n}$, approximation of $x$.
     \end{enumerate}
+    \onslide<8->
     \[
-      \|x-\tilde x\|\approx\frac{1}{\sqrt{N}}\| X - X_k\|= 
-      \frac{1}{\sqrt{N}}\sqrt{V(n-k+1)+\cdots+V(n)}
+      \|x-\tilde x\|\approx\sqrt{\frac{1}{N}\sum_j\| x_j - \tilde x_j\|^2}= 
+      \frac{1}{\sqrt{N}}\sqrt{V(k+1)+\cdots+V(n)}
       \label{ErrorBound}
       \tag{EB}
     \]
@@ -358,7 +372,7 @@ $\VV$ random variable, $V = (v_1,\ldots,v_N)$ N observations of the variable.
     \item $Cov(\UU,\VV) = \frac{1}{N}\sum_{j=1}^N u_jv_j$ 
     \item If $\UU = (\UU_1,\cdots,\UU_m)$, then 
       \[
-      \mbox{Var}(w\cdot \UU) = w^T\UU w
+        \mbox{Var}(w\cdot \UU) = w^T\mbox{Cov}(\UU) w
       \]
   \end{enumerate}
 \end{frame}
@@ -369,7 +383,7 @@ $\VV$ random variable, $V = (v_1,\ldots,v_N)$ N observations of the variable.
     \end{center}
     \begin{itemize}
       \item\uncover<2->{$X^T\1_N = 0$}
-      \item\uncover<3->{$X^TX$}
+      \item\uncover<3->{eig of $X^TX$}
       \item\uncover<4->{$V(w) = \sum_j (w\cdot x_j)^2$ momentum along $w$.}
     \end{itemize}
   \end{minipage}\hfill
@@ -379,7 +393,7 @@ $\VV$ random variable, $V = (v_1,\ldots,v_N)$ N observations of the variable.
     \end{center}
     \begin{itemize}
       \item\uncover<2->{$\E[X^{(1)}], \cdots, \E[X^{(n)}]=0$.}
-      \item\uncover<3->{$N\,\mbox{Cov}(X)$}
+      \item\uncover<3->{eig of $N\,\mbox{Cov}(X)$}
       \item\uncover<4->{$N\,\mbox{Var}(w\cdot X)$}
     \end{itemize}
   \end{minipage}
@@ -455,6 +469,11 @@ Autoencoders}}}
   \item $V^*= [w_1|\cdots|w_k]$ and $U^*=(V^*)^T$ solves~\ref{autotrain}
   \end{itemize}
 \end{block}
+\end{frame}
+\begin{frame}
+  \begin{center}
+    {\bf Thanks for the attention.}
+  \end{center}
 \end{frame}
 \appendix
 \section{appendix}
