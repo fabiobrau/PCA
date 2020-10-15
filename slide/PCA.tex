@@ -88,7 +88,7 @@
       He stated that his method ``can be easily applied
       to numerical problem'' but the calculation becomes ``cumbersome'' for
       more than $4$ variables.
-    \onslide<3->
+    \onslide<2->
     \item {\bf Hotelling} (1933) Introduced PCA by focusing on {\bf Factor
       Analysis}.\\
       He introduced the term {\bf Principal Component}
@@ -300,6 +300,23 @@
       directions.}
     \end{figure}
   \end{minipage}
+\end{frame}
+\begin{frame}{Dimensionality Reduction: A concrete example}{}
+  \begin{minipage}[t]{0.5\textwidth}
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[scale=0.28, trim=0 0 0 5cm]{./pic/eigen_digits.eps}
+   \end{figure}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.4\textwidth}
+  {\bf MNIST}: hand-written digits expressed as $28\times28$ images of
+  $8$-bit.\\ 
+  $\\$
+  {\bf Samples:} $60k$\\
+  {\bf Variables:} $784$\\
+  {\bf Range:} $0-255$
+  \end{minipage}\\
+  First 9 Eigen-Digits, i.e eigen vectors of $X^TX$.
 \end{frame}
 \begin{frame}{Dimensionality Reduction: A concrete example}
   %\animategraphics[loop,controls,width=0.5\linewidth]{2}{./pic/mnist/compress-}{0}{15}
